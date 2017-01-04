@@ -20,6 +20,8 @@
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000",
       "environmentVariables": {
+        "VCAP_SERVICES": "{\"mariadb\": [{\"credentials\": {\"host\": \"127.0.0.1\",\"port\": 3306,\"name\": \"CF_9721AAD9_D429_4353_8C2F_AC3FDE78E805\",\"database\": \"Blog\",\"username\": \"blog\",\"password\": \"WAkuravi\"}}]}",
+        "BLOG_DB_NAME": "CF_9721AAD9_D429_4353_8C2F_AC3FDE78E805",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }

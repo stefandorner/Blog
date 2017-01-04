@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Dorner.Net.Blog.Data;
 using Dorner.Net.Blog.Models;
 using Dorner.Net.Blog.Services;
+using MySQL.Data.EntityFrameworkCore.Extensions;
+using Swisscom.Extensions.Configuration;
 
 namespace Dorner.Net.Blog
 {
@@ -22,7 +20,8 @@ namespace Dorner.Net.Blog
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
@@ -39,9 +38,11 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //ApplicationDbContextFactory.Create(Configuration["VCAP_SERVICES:mariadb:credentials:database_uri"]);
+
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME"))));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -57,6 +58,9 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            
+
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -65,10 +69,37 @@ namespace Dorner.Net.Blog
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
+
+                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+                try
+                {
+                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                    {
+                        var result = serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                             .Database.EnsureCreated();
+                    }
+                }
+                catch(System.Exception ex) {
+                    throw ex;
+                }
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+                try
+                {
+                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                    {
+                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
+                             .Database.EnsureCreated();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             app.UseStaticFiles();
