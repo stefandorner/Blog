@@ -20,8 +20,7 @@ namespace Dorner.Net.Blog
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
@@ -38,7 +37,7 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //ApplicationDbContextFactory.Create(Configuration["VCAP_SERVICES:mariadb:credentials:database_uri"]);
+            //ApplicationDbContextFactory.Create(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")));
 
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
