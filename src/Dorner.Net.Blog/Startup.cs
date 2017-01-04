@@ -75,8 +75,7 @@ namespace Dorner.Net.Blog
                 {
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                     {
-                        var result = serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.EnsureCreated();
+                        var result = serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
                     }
                 }
                 catch(System.Exception ex) {
