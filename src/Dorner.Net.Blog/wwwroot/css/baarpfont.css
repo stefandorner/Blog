@@ -1,0 +1,18 @@
+﻿@font-face {
+  font-family: 'Baar Philos';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Baar Philos'), local('Baar Philos'), url(../fonts/baarprg.woff) format('woff');
+}
+@font-face {
+  font-family: 'Baar Philos';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Baar Philos Italic'), local('Baar Philos Italic'), url(../fonts/baarpi.woff) format('woff');
+}
+@font-face {
+  font-family: 'Baar Philos';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Baar Philos Bold'), local('Baar Philos Bold'), url(../fonts/baarpb.woff) format('woff');
+}

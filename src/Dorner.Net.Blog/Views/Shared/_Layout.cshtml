@@ -12,67 +12,61 @@
     <title>@ViewData["Title"]</title>
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+        @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Dorner.Net.Blog</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+    <header id="header">
+        <nav><ul><li><a href="#menu">Menu</a></li></ul></nav>
+    </header>
+    <div id="wrapper">
         @RenderBody()
-        <hr />
-        <footer>
-            <p class="float-xs-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2017 - Dorner.Net.Blog</p>
-        </footer>
     </div>
+    <nav id="menu" class="">
+        <div class="inner"><h2>Menu</h2><ul class="links"><li><a href="~/">Home</a></li><li><a href="generic.html">Ipsum veroeros</a></li><li><a href="generic.html">Tempus etiam</a></li><li><a href="generic.html">Consequat dolor</a></li><li><a href="elements.html">Elements</a></li></ul><ul class="actions vertical"><li><a href="#" class="button fit special">Get Started</a></li><li><a href="~/Account/Login" class="button fit">Log In</a></li></ul></div><a class="close" href="#menu">Close</a>
+    </nav>
+    
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/tether/dist/js/tether.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        @*<script src="~/lib/tether/dist/js/tether.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>*@
+        <script src="~/lib/skel/dist/skel.min.js"></script>
+        <script src="~/lib/respond/dest/respond.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/util.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
-        <script src="~/lib/tether/dist/js/tether.min.js"
+
+
+
+        @*<script src="~/lib/tether/dist/js/tether.min.js"
                 asp-fallback-src="~/lib/tether/dist/js/tether.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>*@
+        <script src="~/lib/skel/dist/skel.min.js"
+                asp-fallback-src="~/lib/skel/dist/skel.min.js">
+        </script>
+        <script src="~/lib/respond/dest/respond.min.js"
+                asp-fallback-src="~/lib/respond/dest/respond.min.js">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/util.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("scripts", required: false)
