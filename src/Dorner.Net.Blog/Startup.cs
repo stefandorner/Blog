@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Dorner.Net.Blog.Data;
 using Dorner.Net.Blog.Models;
 using Dorner.Net.Blog.Services;
-using MySQL.Data.EntityFrameworkCore.Extensions;
 using Swisscom.Extensions.Configuration;
+using Dorner.Net.Blog.Configuration;
+using System.Reflection;
+using Dorner.Services.Blog.EntityFramework.DbContexts;
+using Dorner.Net.Blog.Data;
+using MySQL.Data.Entity.Extensions;
 
 namespace Dorner.Net.Blog
 {
@@ -37,15 +40,22 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //ApplicationDbContextFactory.Create(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")));
-
-            // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
+            // Add Identity services
+            services.AddDbContext<Data.ApplicationIdentityDbContext>(options =>
                 options.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME"))));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<Data.ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Add Blog Engine services
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            
+            services.AddBlogEngine()
+                .AddBlogEngineStore(builder =>
+                    builder.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")),
+                        options => options.MigrationsAssembly(migrationsAssembly)));
+
 
             services.AddMvc();
 
@@ -57,9 +67,6 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            
-
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -68,44 +75,61 @@ namespace Dorner.Net.Blog
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
-
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
-                {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-                    {
-                        var result = serviceScope.ServiceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
-                    }
-                }
-                catch(System.Exception ex) {
-                    throw ex;
-                }
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
-                {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.EnsureCreated();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    throw ex;
-                }
             }
 
             app.UseStaticFiles();
 
+            #region Setup Databases
+
+            // Identity Service
+            // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+            try
+            {
+                //ApplicationIdentityDbContextFactory.Create()
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var result = serviceScope.ServiceProvider.GetService<ApplicationIdentityDbContext>().Database.EnsureCreated();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                loggerFactory.CreateLogger<Startup>().LogError(ex.Message);
+            }
+
+            //Blog Engine Service
+            try
+            {
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    if(serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.EnsureCreated())
+                    {
+                        serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.Migrate();
+                        DatabaseConfiguration.EnsureSeedData(serviceScope.ServiceProvider.GetService<BlogEngineDbContext>());
+                    }
+                    else
+                    {
+                        var context = serviceScope.ServiceProvider.GetService<BlogEngineDbContext>();
+                        context.Database.Migrate();
+                        DatabaseConfiguration.EnsureSeedData(context);
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                loggerFactory.CreateLogger<Startup>().LogError(ex.Message);
+            }
+
+            #endregion
+
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseBlogEngine();
 
+            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -113,5 +137,7 @@ namespace Dorner.Net.Blog
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        
     }
 }
