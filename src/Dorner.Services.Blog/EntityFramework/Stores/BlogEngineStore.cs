@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dorner.Services.Blog.Models;
+using System.Collections.Generic;
 
 namespace Dorner.Services.Blog.Extensions.Repositories
 {
@@ -38,6 +40,19 @@ namespace Dorner.Services.Blog.Extensions.Repositories
             _logger.LogDebug("{blogEntryId} found in database: {blogEntryId}", blogEntryId, model != null);
 
             return Task.FromResult(model);
+        }
+
+        public Task<List<BlogEntry>> GetBlogEntries(int pageSize = 10, int page = 1)
+        {
+            var entries = _context.BlogEntries
+                .OrderByDescending(b => b.Id)
+                .Skip((page - 1) * pageSize).Take(pageSize);
+
+            var models = entries?.ToModelList();
+
+            _logger.LogDebug("{blogEntryId} blog entries found in database: {blogEntryId}", models.Count, models != null);
+
+            return Task.FromResult(models);
         }
     }
 }

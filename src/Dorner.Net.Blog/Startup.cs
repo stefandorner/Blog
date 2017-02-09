@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Dorner.Net.Blog.Models;
-using Dorner.Net.Blog.Services;
 using Swisscom.Extensions.Configuration;
 using Dorner.Net.Blog.Configuration;
 using System.Reflection;
@@ -43,25 +42,27 @@ namespace Dorner.Net.Blog
             // Add Identity services
             services.AddDbContext<Data.ApplicationIdentityDbContext>(options =>
                 options.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME"))));
-
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<Data.ApplicationIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add Blog Engine services
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            
+
             services.AddBlogEngine()
                 .AddBlogEngineStore(builder =>
                     builder.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")),
                         options => options.MigrationsAssembly(migrationsAssembly)));
-
+            
+            services.AddInfrastructure(options => new InfrastructureOptions(Configuration))
+                .AddDefaultServices();
 
             services.AddMvc();
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            //services.AddTransient<IEmailSender, SmtpMessageSender>();
+            //services.AddTransient<ISmsSender, SmtpMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,7 +98,7 @@ namespace Dorner.Net.Blog
             }
             catch (System.Exception ex)
             {
-                loggerFactory.CreateLogger<Startup>().LogError(ex.Message);
+                loggerFactory.CreateLogger<ApplicationIdentityDbContext>().LogError(ex.Message);
             }
 
             //Blog Engine Service
@@ -105,22 +106,14 @@ namespace Dorner.Net.Blog
             {
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    if(serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.EnsureCreated())
-                    {
-                        serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.Migrate();
-                        DatabaseConfiguration.EnsureSeedData(serviceScope.ServiceProvider.GetService<BlogEngineDbContext>());
-                    }
-                    else
-                    {
-                        var context = serviceScope.ServiceProvider.GetService<BlogEngineDbContext>();
-                        context.Database.Migrate();
-                        DatabaseConfiguration.EnsureSeedData(context);
-                    }
+                    serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.EnsureCreated();
+                    serviceScope.ServiceProvider.GetService<BlogEngineDbContext>().Database.Migrate();
+                    DatabaseConfiguration.EnsureSeedData(serviceScope.ServiceProvider.GetService<BlogEngineDbContext>());
                 }
             }
             catch (System.Exception ex)
             {
-                loggerFactory.CreateLogger<Startup>().LogError(ex.Message);
+                loggerFactory.CreateLogger<BlogEngineDbContext>().LogError(ex.Message);
             }
 
             #endregion

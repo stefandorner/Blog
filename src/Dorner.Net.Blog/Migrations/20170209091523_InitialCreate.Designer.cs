@@ -8,8 +8,8 @@ using Dorner.Services.Blog.EntityFramework.DbContexts;
 namespace Dorner.Net.Blog.Migrations
 {
     [DbContext(typeof(BlogEngineDbContext))]
-    [Migration("20170207074958_BlogInit")]
-    partial class BlogInit
+    [Migration("20170209091523_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

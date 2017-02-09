@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Dorner.BlogEngineCore.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace Microsoft.AspNetCore.Builder
         {
             app.Validate();
 
-            //app.UseMiddleware<BaseUrlMiddleware>();
+            app.UseMiddleware<BaseUrlMiddleware>();
 
-            //app.ConfigureCors();
+            app.ConfigureCors();
             //app.ConfigureCookies();
 
-            //app.UseMiddleware<AccessControlServerMiddleware>();
+            app.UseMiddleware<BlogEngineMiddleware>();
 
             return app;
         }

@@ -18,11 +18,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
             builder.AddRequiredPlatformServices();
 
+
+
             builder.AddCoreServices();
-            //builder.AddDefaultEndpoints();
-            //builder.AddPluggableServices();
-            //builder.AddValidators();
-            //builder.AddResponseGenerators();
+            builder.AddDefaultEndpoints();
+            builder.AddPluggableServices();
+            builder.AddValidators();
+            builder.AddResponseGenerators();
 
             //builder.AddDefaultSecretParsers();
             //builder.AddDefaultSecretValidators();
@@ -33,19 +35,21 @@ namespace Microsoft.Extensions.DependencyInjection
             return new BlogEngineBuilder(services);
         }
 
-        public static IBlogEngineBuilder AddBlogEngine(this IServiceCollection services, Action<BlogEngineOptions> configure)
+        
+
+        public static IBlogEngineBuilder AddBlogEngine(this IServiceCollection services, Action<BlogEngineOptions> configureAction)
         {
             if (services == null)
             {
                 throw new ArgumentNullException(nameof(services));
             }
 
-            if (configure == null)
+            if (configureAction == null)
             {
-                throw new ArgumentNullException(nameof(configure));
+                throw new ArgumentNullException(nameof(configureAction));
             }
 
-            services.Configure(configure);
+            services.Configure(configureAction);
             return services.AddBlogEngine();
         }
 

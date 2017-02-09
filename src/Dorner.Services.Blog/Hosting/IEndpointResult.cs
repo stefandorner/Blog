@@ -1,0 +1,10 @@
+﻿using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
+namespace Dorner.BlogEngineCore.Hosting
+{
+    public interface IEndpointResult
+    {
+        Task ExecuteAsync(HttpContext context);
+    }
+}

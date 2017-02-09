@@ -12,7 +12,11 @@
     "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
     "Microsoft.AspNetCore.Http": "1.1.0",
-    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0"
+    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Mvc.Core": "1.1.1",
+    "System.Net.Primitives": "4.3.0",
+    "Microsoft.Extensions.Testing.Abstractions": "1.0.0-preview2-003121",
+    "Microsoft.AspNetCore.Cors": "1.1.0"
   },
 
   "frameworks": {

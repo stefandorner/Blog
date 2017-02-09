@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dorner.BlogEngineCore.Configuration.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,14 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public class BlogEngineOptions
     {
-        /// <summary>
-        /// Gets or sets the unique name of this server instance, e.g. https://myissuer.com.
-        /// If not set, the issuer name is inferred from the request
-        /// </summary>
-        /// <value>
-        /// Unique name of this server instance, e.g. https://myissuer.com
-        /// </value>
-        public string IssuerUri { get; set; }
+
 
         /// <summary>
         /// Gets or sets the endpoint configuration.
@@ -26,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <value>
         /// The endpoints configuration.
         /// </value>
-        //public EndpointsOptions Endpoints { get; set; } = new EndpointsOptions();
+        public EndpointsOptions Endpoints { get; set; } = new EndpointsOptions();
 
         /// <summary>
         /// Gets or sets the discovery endpoint configuration.
@@ -58,7 +52,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <value>
         /// The events options.
         /// </value>
-        //public EventsOptions Events { get; set; } = new EventsOptions();
+        public EventsOptions Events { get; set; } = new EventsOptions();
 
         /// <summary>
         /// Gets or sets the max input length restrictions.
@@ -74,7 +68,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <value>
         /// The user interaction options.
         /// </value>
-        //public UserInteractionOptions UserInteraction { get; set; } = new UserInteractionOptions();
+        public UserInteractionOptions UserInteraction { get; set; } = new UserInteractionOptions();
 
         /// <summary>
         /// Gets or sets the caching options.
@@ -90,6 +84,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <value>
         /// The cors options.
         /// </value>
-        //public CorsOptions Cors { get; set; } = new CorsOptions();
+        public CorsOptions Cors { get; set; } = new CorsOptions();
     }
 }

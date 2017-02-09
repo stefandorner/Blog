@@ -26,7 +26,8 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
     "SapientGuardian.EntityFrameworkCore.MySql": "7.1.19",
     "Microsoft.EntityFrameworkCore.Design": "1.1.0",
-    "Dorner.Services.Blog": "1.0.0-*"
+    "Dorner.Services.Blog": "1.0.0-*",
+    "MailKit": "1.10.2"
   },
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.1.0-preview4-final",
@@ -37,12 +38,10 @@
   "frameworks": {
     "netcoreapp1.1": {
       "imports": [
-        "dotnet5.6",
-        "portable-net45+win8"
+        "dnxcore50"
       ]
     }
   },
-
   "buildOptions": {
     "emitEntryPoint": true,
     "debugType": "portable",
@@ -56,13 +55,11 @@
       ]
     }
   },
-
   "runtimeOptions": {
     "configProperties": {
       "System.GC.Server": true
     }
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
@@ -71,9 +68,9 @@
       "web.config"
     ]
   },
+    "scripts": {
+      "prepublish": [ "bower install", "dotnet bundle" ],
+      "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    }
 
-  "scripts": {
-    "prepublish": [ "bower install", "dotnet bundle" ],
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
-  }
 }

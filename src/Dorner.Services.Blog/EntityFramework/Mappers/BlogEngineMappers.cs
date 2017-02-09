@@ -21,6 +21,18 @@ namespace Dorner.Services.Blog.EntityFramework.Mappers
             return Mapper.Map<Models.BlogEntry>(blogEntry);
         }
 
+        public static List<Models.BlogEntry> ToModelList(this IQueryable<Entities.BlogEntry> blogEntries)
+        {
+            List<Models.BlogEntry> list = new List<Models.BlogEntry>();
+
+            foreach (var entry in blogEntries)
+            {
+                list.Add(Mapper.Map<Models.BlogEntry>(entry));
+            }
+
+            return list;
+        }
+
         public static Entities.BlogEntry ToEntity(this Models.BlogEntry blogEntry)
         {
             return Mapper.Map<Entities.BlogEntry>(blogEntry);

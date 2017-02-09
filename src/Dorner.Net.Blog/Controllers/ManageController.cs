@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Dorner.Net.Blog.Models;
 using Dorner.Net.Blog.Models.ManageViewModels;
-using Dorner.Net.Blog.Services;
+using Dorner.AspNetCore.Infrastructure;
 
 namespace Dorner.Net.Blog.Controllers
 {

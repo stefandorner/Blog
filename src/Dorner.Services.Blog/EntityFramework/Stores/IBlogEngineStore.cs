@@ -14,5 +14,7 @@ namespace Dorner.Services.Blog.Repositories
         /// <param name="blogEntryId">The blog entry id</param>
         /// <returns>The blog entry</returns>
         Task<Models.BlogEntry> FindBlogEntryByIdAsync(string blogEntryId);
+
+        Task<List<Models.BlogEntry>> GetBlogEntries(int pageSize = 10, int page = 1);
     }
 }

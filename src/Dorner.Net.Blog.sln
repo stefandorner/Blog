@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dorner.Net.Blog", "Dorner.Net.Blog\Dorner.Net.Blog.xproj", "{E548E943-EE40-4513-B3C1-68746E78B81F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Swisscom.Extensions", "Swisscom.Extensions\Swisscom.Extensions.xproj", "{D8DA1500-46A6-46B0-B0FA-A947FC34C4F1}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dorner.AspNetCore", "Swisscom.Extensions\Dorner.AspNetCore.xproj", "{D8DA1500-46A6-46B0-B0FA-A947FC34C4F1}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dorner.ImageSharp", "Dorner.ImageSharp\Dorner.ImageSharp.xproj", "{2A56B2BB-9CCE-4E12-A7CD-A6C939FC3B79}"
 EndProject

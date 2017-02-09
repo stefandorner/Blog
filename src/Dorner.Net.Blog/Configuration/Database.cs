@@ -17,8 +17,10 @@ namespace Dorner.Net.Blog.Configuration
             {
                 new Dorner.Services.Blog.Models.BlogEntry
                 {
-                    Title = "",
-                    BlogEntryId = ""
+                    Title = "Welcome",
+                    BlogEntryId = "welcome",
+                    Text = "<p>Hello</p>",
+                    Description = "Please ignore."
                 }
             };
         }

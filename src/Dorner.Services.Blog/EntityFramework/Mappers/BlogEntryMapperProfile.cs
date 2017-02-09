@@ -40,7 +40,7 @@ namespace Dorner.Services.Blog.EntityFramework.Mappers
             //    .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null));
 
             //// model to entity
-            //CreateMap<Models.Client, Client>(MemberList.Source)
+            CreateMap<Models.BlogEntry, Entities.BlogEntry>(MemberList.Source);
             //    .ForMember(x => x.AllowedGrantTypes,
             //        opt => opt.MapFrom(src => src.AllowedGrantTypes.Select(x => new ClientGrantType { GrantType = x })))
             //    .ForMember(x => x.RedirectUris,
