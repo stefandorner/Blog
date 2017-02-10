@@ -39,6 +39,10 @@ namespace Dorner.Net.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddInfrastructure(Configuration)
+                .AddDefaultServices();
+
             // Add Identity services
             services.AddDbContext<Data.ApplicationIdentityDbContext>(options =>
                 options.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME"))));
@@ -55,9 +59,6 @@ namespace Dorner.Net.Blog
                     builder.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")),
                         options => options.MigrationsAssembly(migrationsAssembly)));
             
-            services.AddInfrastructure(options => new InfrastructureOptions(Configuration))
-                .AddDefaultServices();
-
             services.AddMvc();
 
             // Add application services.

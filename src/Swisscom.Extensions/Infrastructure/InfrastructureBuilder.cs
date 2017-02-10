@@ -2,11 +2,21 @@
 using System;
 namespace Dorner.AspNetCore.Infrastructure
 {
-    public class InfrastructureBuilder
+    public interface IInfrastructureBuilder
+    {
+        IServiceCollection Services { get; }
+
+        IInfrastructureBuilder AddDefaultServices();
+    }
+
+
+    public class InfrastructureBuilder : IInfrastructureBuilder
     {
 
         public InfrastructureBuilder(Type email, Type sms, IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
             this.EmailType = email;
             this.SmsType = sms;
             this.Services = services;
@@ -37,10 +47,10 @@ namespace Dorner.AspNetCore.Infrastructure
         }
 
         
-        public virtual InfrastructureBuilder AddDefaultServices()
+        public virtual IInfrastructureBuilder AddDefaultServices()
         {
-            ServiceCollectionServiceExtensions.AddTransient(this.Services, typeof(IEmailSender), typeof(SendGridMessageSender));
-            ServiceCollectionServiceExtensions.AddTransient(this.Services, typeof(ISmsSender), typeof(DefaultSmsProvider));
+            ServiceCollectionServiceExtensions.AddTransient(this.Services, this.EmailType, typeof(SendGridMessageSender));
+            ServiceCollectionServiceExtensions.AddTransient(this.Services, this.SmsType, typeof(DefaultSmsProvider));
             return this;
         }
 

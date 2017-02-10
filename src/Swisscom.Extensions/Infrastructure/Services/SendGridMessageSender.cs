@@ -13,12 +13,12 @@ namespace Dorner.AspNetCore.Infrastructure
     public class SendGridMessageSender : IEmailSender
     {
 
-        private IOptions<InfrastructureOptions> _Options;
+        private InfrastructureOptions _Options;
         private readonly ILogger _logger;
 
         public SendGridMessageSender(IOptions<InfrastructureOptions> options, ILoggerFactory loggerFactory)
         {
-            _Options = options;
+            _Options = options.Value;
             _logger = loggerFactory.CreateLogger<SendGridMessageSender>();
         }
 
@@ -28,7 +28,7 @@ namespace Dorner.AspNetCore.Infrastructure
             try
             {
                 var emailMessage = new MimeMessage();
-                emailMessage.From.Add(new MailboxAddress(_Options.Value.Smtp.SenderDisplayName, _Options.Value.Smtp.SenderAddress));
+                emailMessage.From.Add(new MailboxAddress(_Options.Smtp.SenderDisplayName, _Options.Smtp.SenderAddress));
                 emailMessage.To.Add(new MailboxAddress(email));
                 emailMessage.Subject = subject;
                 emailMessage.Body = new TextPart("plain")
@@ -38,11 +38,11 @@ namespace Dorner.AspNetCore.Infrastructure
 
                 using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync(_Options.Value.Smtp.Host, _Options.Value.Smtp.Port, false);
+                    await client.ConnectAsync(_Options.Smtp.Host, _Options.Smtp.Port, false);
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
                     // Note: since we don't have an OAuth2 token, disable
                     // the XOAUTH2 authentication mechanism.
-                    await client.AuthenticateAsync(_Options.Value.Smtp.Username, _Options.Value.Smtp.Password);
+                    await client.AuthenticateAsync(_Options.Smtp.Username, _Options.Smtp.Password);
                     await client.SendAsync(emailMessage);
                     await client.DisconnectAsync(true);
                 }
