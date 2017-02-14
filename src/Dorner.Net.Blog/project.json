@@ -55,6 +55,11 @@
         "Views",
         "appsettings.json"
       ]
+    },
+    "compile": {
+      "includeFiles": [
+        "../SharedVersionInfo.cs"
+      ]
     }
   },
   "runtimeOptions": {

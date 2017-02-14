@@ -14,10 +14,10 @@
     <title>@ViewData["Title"]</title>
     <noscript>JavaScript is required.</noscript>
     <environment names="Development">
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
     <environment names="Staging,Production">
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="false" />
     </environment>
 </head>
 <body>
@@ -44,7 +44,7 @@
     <environment names="Staging,Production">
     <script src="~/lib/jquery/dist/jquery.min.js"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery">
+            asp-fallback-test="window.jQuery" asp-append-version="false">
     </script>
 
 
@@ -58,13 +58,13 @@
             asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>*@
     <script src="~/lib/skel/dist/skel.min.js"
-            asp-fallback-src="~/lib/skel/dist/skel.min.js">
+            asp-fallback-src="~/lib/skel/dist/skel.min.js" asp-append-version="false">
     </script>
     <script src="~/lib/respond/dest/respond.min.js"
-            asp-fallback-src="~/lib/respond/dest/respond.min.js">
+            asp-fallback-src="~/lib/respond/dest/respond.min.js" asp-append-version="false">
     </script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/util.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="false"></script>
+    <script src="~/js/util.js" asp-append-version="false"></script>
     </environment>
 
     @RenderSection("scripts", required: false)
