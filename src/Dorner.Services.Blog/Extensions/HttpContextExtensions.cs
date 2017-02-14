@@ -5,7 +5,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Extensions
+namespace Dorner.BlogServiceCore.Extensions
 {
     public static class HttpContextExtensions
     {

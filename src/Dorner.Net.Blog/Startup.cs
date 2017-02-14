@@ -15,6 +15,7 @@ using MySQL.Data.Entity.Extensions;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using System.Linq;
 
 namespace Dorner.Net.Blog
 {
@@ -64,9 +65,24 @@ namespace Dorner.Net.Blog
 
             // Add compression
             services.Configure<GzipCompressionProviderOptions>
-            (options => options.Level = CompressionLevel.Fastest);
+            (options => options.Level = CompressionLevel.Optimal);
                 services.AddResponseCompression(options =>
                 {
+                    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+                    {
+                        // General
+                        "text/plain",
+                        // Static files
+                        "text/css",
+                        "application/javascript",
+                        // MVC
+                        "text/html",
+                        "application/xml",
+                        "text/xml",
+                        "application/json",
+                        "text/json"
+                    });
+                    options.EnableForHttps = true;
                     options.Providers.Add<GzipCompressionProvider>();
                 });
 
@@ -97,6 +113,7 @@ namespace Dorner.Net.Blog
 
             app.UseStaticFiles(new StaticFileOptions
             {
+                
                 OnPrepareResponse = ctx =>
                 {
                     int durationInSeconds = 60 * 60 * 1;

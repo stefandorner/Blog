@@ -1,10 +1,10 @@
-﻿using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
     
     public class RssResponse

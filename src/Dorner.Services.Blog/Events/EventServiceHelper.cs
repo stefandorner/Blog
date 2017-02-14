@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dorner.BlogEngineCore.Events
+namespace Dorner.BlogServiceCore.Events
 {
     public class EventServiceHelper
     {

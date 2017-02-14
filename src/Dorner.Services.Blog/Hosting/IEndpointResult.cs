@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Hosting
+namespace Dorner.BlogServiceCore.Hosting
 {
     public interface IEndpointResult
     {

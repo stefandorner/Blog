@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
     /// <summary>
     /// Models the data for the error page.

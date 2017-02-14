@@ -1,7 +1,7 @@
-﻿using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore.Extensions;
 using System.Collections.Specialized;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
     
     internal static class RssResponseExtensions

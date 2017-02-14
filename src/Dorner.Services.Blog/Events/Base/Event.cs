@@ -1,10 +1,10 @@
-﻿using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Events
+namespace Dorner.BlogServiceCore.Events
 {
     /// <summary>
     /// Models base class for events raised from BlogEngine.

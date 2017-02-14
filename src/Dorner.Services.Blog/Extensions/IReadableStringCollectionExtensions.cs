@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Dorner.BlogEngineCore.Extensions
+namespace Dorner.BlogServiceCore.Extensions
 {
     public static class IReadableStringCollectionExtensions
     {

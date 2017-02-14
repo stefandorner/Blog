@@ -1,4 +1,4 @@
-﻿using Dorner.BlogEngineCore.Hosting;
+﻿using Dorner.BlogServiceCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

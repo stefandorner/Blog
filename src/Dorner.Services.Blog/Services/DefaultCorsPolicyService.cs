@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Services
+namespace Dorner.BlogServiceCore.Services
 {
     /// <summary>
     /// Default CORS policy service.

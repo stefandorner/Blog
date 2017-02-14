@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Net;
-using Dorner.BlogEngineCore.Hosting;
+using Dorner.BlogServiceCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace Dorner.BlogEngineCore.Endpoints.Results
+namespace Dorner.BlogServiceCore.Endpoints.Results
 {
     public class StatusCodeResult : IEndpointResult
     {

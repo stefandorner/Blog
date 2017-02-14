@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace Dorner.BlogEngineCore.Extensions
+namespace Dorner.BlogServiceCore.Extensions
 {
     internal static class NameValueCollectionExtensions
     {

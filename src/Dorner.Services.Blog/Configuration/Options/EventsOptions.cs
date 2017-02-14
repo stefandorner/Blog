@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Configuration.Options
+namespace Dorner.BlogServiceCore.Configuration.Options
 {
     /// <summary>
     /// Configures events

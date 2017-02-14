@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Dorner.BlogEngineCore.Infrastructure
+namespace Dorner.BlogServiceCore.Infrastructure
 {
     internal static class ObjectSerializer
     {

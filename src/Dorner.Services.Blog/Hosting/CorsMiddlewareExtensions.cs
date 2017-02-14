@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Hosting
+namespace Dorner.BlogServiceCore.Hosting
 {
     public static class CorsMiddlewareExtensions
     {

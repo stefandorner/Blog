@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
     
     /// <summary>

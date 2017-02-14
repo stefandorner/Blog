@@ -1,14 +1,11 @@
-﻿using Dorner.BlogEngineCore.Hosting;
-using System;
+﻿using Dorner.BlogServiceCore.Hosting;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore
+namespace Dorner.BlogServiceCore
 {
     internal static class Constants
     {
-        public const string ServerName = "BlogEngineCore";
+        public const string ServerName = "BlogServiceCore";
 
         public static class ProtocolRoutePaths
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Events
+namespace Dorner.BlogServiceCore.Events
 {
     /// <summary>
     /// Contextual information included with every event.

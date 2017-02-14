@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Security.Claims;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
     /// <summary>
     /// Base class for a validate rss request

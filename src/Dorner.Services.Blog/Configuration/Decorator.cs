@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dorner.BlogEngineCore.Configuration
+namespace Dorner.BlogServiceCore.Configuration
 {
     internal class Decorator<TService>
     {

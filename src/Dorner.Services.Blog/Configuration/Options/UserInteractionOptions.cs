@@ -1,5 +1,5 @@
-﻿using Dorner.BlogEngineCore;
-using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore;
+using Dorner.BlogServiceCore.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

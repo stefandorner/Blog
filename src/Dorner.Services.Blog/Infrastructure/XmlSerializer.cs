@@ -1,4 +1,4 @@
-﻿using Dorner.BlogEngineCore.Models;
+﻿using Dorner.BlogServiceCore.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-namespace Dorner.BlogEngineCore.Infrastructure
+namespace Dorner.BlogServiceCore.Infrastructure
 {
     //internal static class FeedSerializer
     //{

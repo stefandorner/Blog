@@ -1,11 +1,11 @@
-﻿using Dorner.BlogEngineCore.Extensions;
-using Dorner.BlogEngineCore.Models;
+﻿using Dorner.BlogServiceCore.Extensions;
+using Dorner.BlogServiceCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Logging
+namespace Dorner.BlogServiceCore.Logging
 {
     
     internal class RssRequestValidationLog

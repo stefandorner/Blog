@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Validation
+namespace Dorner.BlogServiceCore.Validation
 {
     /// <summary>
     /// Minimal validation result class (base-class for more complext validation results)

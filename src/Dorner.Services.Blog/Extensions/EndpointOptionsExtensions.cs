@@ -1,8 +1,8 @@
-﻿using Dorner.BlogEngineCore.Configuration;
-using Dorner.BlogEngineCore.Configuration.Options;
-using Dorner.BlogEngineCore.Hosting;
+﻿using Dorner.BlogServiceCore.Configuration;
+using Dorner.BlogServiceCore.Configuration.Options;
+using Dorner.BlogServiceCore.Hosting;
 
-namespace Dorner.BlogEngineCore.Extensions
+namespace Dorner.BlogServiceCore.Extensions
 {
     internal static class EndpointOptionsExtensions
     {

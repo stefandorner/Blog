@@ -1,4 +1,4 @@
-﻿using Dorner.BlogEngineCore.Infrastructure;
+﻿using Dorner.BlogServiceCore.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace Dorner.BlogEngineCore.Models
+namespace Dorner.BlogServiceCore.Models
 {
 
     public class Feed

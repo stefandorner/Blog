@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Dorner.BlogEngineCore.Hosting
+namespace Dorner.BlogServiceCore.Hosting
 {
     public interface IEndpointRouter
     {

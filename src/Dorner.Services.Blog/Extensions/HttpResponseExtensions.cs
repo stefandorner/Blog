@@ -1,5 +1,5 @@
-﻿using Dorner.BlogEngineCore.Extensions;
-using Dorner.BlogEngineCore.Infrastructure;
+﻿using Dorner.BlogServiceCore.Extensions;
+using Dorner.BlogServiceCore.Infrastructure;
 using System.Text;
 using System.Threading.Tasks;
 

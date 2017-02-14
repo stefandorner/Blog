@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Services
+namespace Dorner.BlogServiceCore.Services
 {
     /// <summary>
     /// Service that determines if CORS is allowed.

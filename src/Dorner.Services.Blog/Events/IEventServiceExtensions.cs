@@ -1,10 +1,10 @@
-﻿using Dorner.BlogEngineCore.Services;
+﻿using Dorner.BlogServiceCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Events
+namespace Dorner.BlogServiceCore.Events
 {
     internal static class IEventServiceExtensions
     {

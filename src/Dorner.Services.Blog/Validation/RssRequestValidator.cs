@@ -1,6 +1,6 @@
-﻿using Dorner.BlogEngineCore.Extensions;
-using Dorner.BlogEngineCore.Logging;
-using Dorner.BlogEngineCore.Models;
+﻿using Dorner.BlogServiceCore.Extensions;
+using Dorner.BlogServiceCore.Logging;
+using Dorner.BlogServiceCore.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Validation
+namespace Dorner.BlogServiceCore.Validation
 {
     
     internal class RssRequestValidator : IRssRequestValidator

@@ -1,4 +1,4 @@
-﻿using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Hosting
+namespace Dorner.BlogServiceCore.Hosting
 {
     class EndpointRouter : IEndpointRouter
     {

@@ -1,8 +1,8 @@
-﻿using Dorner.BlogEngineCore.Extensions;
+﻿using Dorner.BlogServiceCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Hosting
+namespace Dorner.BlogServiceCore.Hosting
 {
     public class BaseUrlMiddleware
     {

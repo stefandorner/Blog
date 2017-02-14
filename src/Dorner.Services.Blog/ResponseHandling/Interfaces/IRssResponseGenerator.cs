@@ -1,7 +1,7 @@
-﻿using Dorner.BlogEngineCore.Models;
+﻿using Dorner.BlogServiceCore.Models;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.ResponseHandling
+namespace Dorner.BlogServiceCore.ResponseHandling
 {
     
     public interface IRssResponseGenerator

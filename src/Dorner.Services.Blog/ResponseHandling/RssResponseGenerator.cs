@@ -1,5 +1,5 @@
-﻿using Dorner.BlogEngineCore.Models;
-using Dorner.BlogEngineCore.Services;
+﻿using Dorner.BlogServiceCore.Models;
+using Dorner.BlogServiceCore.Services;
 using Dorner.Services.Blog.Repositories;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.ResponseHandling
+namespace Dorner.BlogServiceCore.ResponseHandling
 {
     
     public class RssResponseGenerator : IRssResponseGenerator

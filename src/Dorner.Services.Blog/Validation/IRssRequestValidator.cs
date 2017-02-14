@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Validation
+namespace Dorner.BlogServiceCore.Validation
 {
     internal interface IRssRequestValidator
     {

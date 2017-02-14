@@ -1,7 +1,7 @@
-﻿using Dorner.BlogEngineCore.Events;
+﻿using Dorner.BlogServiceCore.Events;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Services
+namespace Dorner.BlogServiceCore.Services
 {
     /// <summary>
     /// Models a recipient of notification of events

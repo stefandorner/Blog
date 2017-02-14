@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
-using Dorner.BlogEngineCore.Endpoints;
-using Dorner.BlogEngineCore.Hosting;
-using Dorner.BlogEngineCore;
-using Dorner.BlogEngineCore.Validation;
+using Dorner.BlogServiceCore.Endpoints;
+using Dorner.BlogServiceCore.Hosting;
+using Dorner.BlogServiceCore;
+using Dorner.BlogServiceCore.Validation;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Dorner.BlogEngineCore.ResponseHandling;
-using Dorner.BlogEngineCore.Infrastructure;
-using Dorner.BlogEngineCore.Configuration;
-using Dorner.BlogEngineCore.Services;
-using Dorner.BlogEngineCore.Events;
+using Dorner.BlogServiceCore.ResponseHandling;
+using Dorner.BlogServiceCore.Infrastructure;
+using Dorner.BlogServiceCore.Configuration;
+using Dorner.BlogServiceCore.Services;
+using Dorner.BlogServiceCore.Events;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

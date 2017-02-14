@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Dorner.BlogEngineCore.Configuration;
-using Dorner.BlogEngineCore.Services;
+using Dorner.BlogServiceCore.Configuration;
+using Dorner.BlogServiceCore.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dorner.BlogEngineCore.Infrastructure
+namespace Dorner.BlogServiceCore.Infrastructure
 {
     internal class CorsPolicyProvider : ICorsPolicyProvider
     {

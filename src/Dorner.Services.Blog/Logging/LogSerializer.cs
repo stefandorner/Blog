@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Dorner.BlogEngineCore.Logging
+namespace Dorner.BlogServiceCore.Logging
 {
     /// <summary>
     /// Helper to JSON serialize object data for logging.

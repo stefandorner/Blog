@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Dorner.BlogEngineCore.Extensions;
+using Dorner.BlogServiceCore.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
 using System.Net;
-using Dorner.BlogEngineCore.Hosting;
-using Dorner.BlogEngineCore.Endpoints.Results;
+using Dorner.BlogServiceCore.Hosting;
+using Dorner.BlogServiceCore.Endpoints.Results;
 using Microsoft.AspNetCore.Http;
 using System;
-using Dorner.BlogEngineCore.Services;
-using Dorner.BlogEngineCore.Models;
-using Dorner.BlogEngineCore.Validation;
-using Dorner.BlogEngineCore.Logging;
-using Dorner.BlogEngineCore.Events;
-using Dorner.BlogEngineCore.ResponseHandling;
+using Dorner.BlogServiceCore.Services;
+using Dorner.BlogServiceCore.Models;
+using Dorner.BlogServiceCore.Validation;
+using Dorner.BlogServiceCore.Logging;
+using Dorner.BlogServiceCore.Events;
+using Dorner.BlogServiceCore.ResponseHandling;
 
-namespace Dorner.BlogEngineCore.Endpoints
+namespace Dorner.BlogServiceCore.Endpoints
 {
     
     class RssEndpoint : IEndpoint

@@ -1,10 +1,10 @@
-﻿using Dorner.BlogEngineCore.Events;
-using Dorner.BlogEngineCore.Logging;
+﻿using Dorner.BlogServiceCore.Events;
+using Dorner.BlogServiceCore.Logging;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Dorner.BlogEngineCore.Services
+namespace Dorner.BlogServiceCore.Services
 {
     /// <summary>
     /// Default implementation of the event service. Write events raised to the log.

@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Dorner.BlogEngineCore.Hosting;
-using Dorner.BlogEngineCore.Models;
-using Dorner.BlogEngineCore.Extensions;
+using Dorner.BlogServiceCore.Hosting;
+using Dorner.BlogServiceCore.Models;
+using Dorner.BlogServiceCore.Extensions;
 using System.Text;
-using Dorner.BlogEngineCore.Infrastructure;
+using Dorner.BlogServiceCore.Infrastructure;
 
-namespace Dorner.BlogEngineCore.Endpoints.Results
+namespace Dorner.BlogServiceCore.Endpoints.Results
 {
     
     class RssResult : IEndpointResult
