@@ -1,6 +1,23 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=Raleway:300,300italic,500,500italic");
-@import url("baarpfont.css");
 
+@font-face {
+    font-family: 'Baar Philos';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Baar Philos'), local('Baar Philos'), url(../fonts/baarprg.woff) format('woff');
+}
+@font-face {
+    font-family: 'Baar Philos';
+    font-style: italic;
+    font-weight: 300;
+    src: local('Baar Philos Italic'), local('Baar Philos Italic'), url(../fonts/baarpi.woff) format('woff');
+}
+@font-face {
+    font-family: 'Baar Philos';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Baar Philos Bold'), local('Baar Philos Bold'), url(../fonts/baarpb.woff) format('woff');
+}
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
@@ -3494,5 +3511,26 @@ body.is-loading #intro .content {
         -webkit-transform: translateY(0.35em);
         -ms-transform: translateY(0.35em);
         transform: translateY(0.35em);
+    }
+}
+
+
+
+
+@media screen and (max-width: 1280px) {
+    #sectionCurve {
+        position: absolute;
+        width: 100%;
+        height: 70px;
+        top: -69px;
+        bottom: 0px;
+        left: 0px;
+        viewBox: 0 0 1280 70;
+        preserveAspectRatio: none;
+
+    }
+    #sectionCurve polygon {
+        points: 1280 0 1280 70 0 70;
+        fill: snow;
     }
 }

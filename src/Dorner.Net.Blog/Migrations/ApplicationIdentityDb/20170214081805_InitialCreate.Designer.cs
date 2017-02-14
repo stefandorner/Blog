@@ -8,7 +8,7 @@ using Dorner.Net.Blog.Data;
 namespace Dorner.Net.Blog.Migrations.ApplicationIdentityDb
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20170209090943_InitialCreate")]
+    [Migration("20170214081805_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

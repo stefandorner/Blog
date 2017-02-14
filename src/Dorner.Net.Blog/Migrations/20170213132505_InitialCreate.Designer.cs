@@ -8,9 +8,10 @@ using Dorner.Services.Blog.EntityFramework.DbContexts;
 namespace Dorner.Net.Blog.Migrations
 {
     [DbContext(typeof(BlogEngineDbContext))]
-    partial class BlogEngineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170213132505_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");

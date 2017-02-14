@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dorner.Services.Blog.Models;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dorner.Services.Blog.Extensions.Repositories
 {
@@ -23,10 +24,12 @@ namespace Dorner.Services.Blog.Extensions.Repositories
             _logger = logger;
         }
 
-        public Task<Models.BlogEntry> FindBlogEntryByIdAsync(string blogEntryId)
+        public Task<Models.BlogPost> FindBlogEntryByIdAsync(string blogEntryId)
         {
-            var client = _context.BlogEntries
-                //.Include(x => x.AllowedGrantTypes)
+            var entries = _context.Posts
+                .Include(x => x.Categories)
+                .Include(x => x.Tags)
+                .Include(x => x.Blog)
                 //.Include(x => x.RedirectUris)
                 //.Include(x => x.PostLogoutRedirectUris)
                 //.Include(x => x.AllowedScopes)
@@ -34,17 +37,17 @@ namespace Dorner.Services.Blog.Extensions.Repositories
                 //.Include(x => x.Claims)
                 //.Include(x => x.IdentityProviderRestrictions)
                 //.Include(x => x.AllowedCorsOrigins)
-                .FirstOrDefault(x => x.BlogEntryId == blogEntryId);
-            var model = client?.ToModel();
+                .FirstOrDefault(x => x.BlogPostId == blogEntryId);
+            var model = entries?.ToModel();
 
             _logger.LogDebug("{blogEntryId} found in database: {blogEntryId}", blogEntryId, model != null);
 
             return Task.FromResult(model);
         }
 
-        public Task<List<BlogEntry>> GetBlogEntries(int pageSize = 10, int page = 1)
+        public Task<List<BlogPost>> GetBlogEntries(int pageSize = 10, int page = 1)
         {
-            var entries = _context.BlogEntries
+            var entries = _context.Posts
                 .OrderByDescending(b => b.Id)
                 .Skip((page - 1) * pageSize).Take(pageSize);
 

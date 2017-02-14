@@ -40,7 +40,7 @@ namespace Dorner.BlogEngineCore.ResponseHandling
                 var item = new Item()
                 {
                     Title = entry.Title,
-                    Body = entry.Text,
+                    Body = entry.Body,
                     //Link = new Uri(new Uri("http://blogname/", entry.Title)),
                     //Permalink = entry.Slug,
                     //PublishDate = entry.DatePublished,
@@ -63,7 +63,7 @@ namespace Dorner.BlogEngineCore.ResponseHandling
             return response;
         }
 
-        private async Task<List<Dorner.Services.Blog.Models.BlogEntry>> GetBlogEntriesAsync(ValidatedRssRequest request)
+        private async Task<List<Dorner.Services.Blog.Models.BlogPost>> GetBlogEntriesAsync(ValidatedRssRequest request)
         {
             return await _blogEngineStore.GetBlogEntries(25);
         }

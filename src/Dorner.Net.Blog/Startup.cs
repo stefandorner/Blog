@@ -12,6 +12,9 @@ using System.Reflection;
 using Dorner.Services.Blog.EntityFramework.DbContexts;
 using Dorner.Net.Blog.Data;
 using MySQL.Data.Entity.Extensions;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace Dorner.Net.Blog
 {
@@ -58,7 +61,16 @@ namespace Dorner.Net.Blog
                 .AddBlogEngineStore(builder =>
                     builder.UseMySQL(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME")),
                         options => options.MigrationsAssembly(migrationsAssembly)));
-            
+
+            // Add compression
+            services.Configure<GzipCompressionProviderOptions>
+            (options => options.Level = CompressionLevel.Fastest);
+                services.AddResponseCompression(options =>
+                {
+                    options.Providers.Add<GzipCompressionProvider>();
+                });
+
+
             services.AddMvc();
 
             // Add application services.
@@ -83,7 +95,14 @@ namespace Dorner.Net.Blog
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    int durationInSeconds = 60 * 60 * 1;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                }
+            });
 
             #region Setup Databases
 
@@ -95,6 +114,7 @@ namespace Dorner.Net.Blog
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
                     var result = serviceScope.ServiceProvider.GetService<ApplicationIdentityDbContext>().Database.EnsureCreated();
+                    DatabaseConfiguration.CreateAdminAccount(serviceScope).Wait();
                 }
             }
             catch (System.Exception ex)
@@ -122,7 +142,7 @@ namespace Dorner.Net.Blog
             app.UseIdentity();
 
             app.UseBlogEngine();
-
+            app.UseResponseCompression();
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes =>
             {

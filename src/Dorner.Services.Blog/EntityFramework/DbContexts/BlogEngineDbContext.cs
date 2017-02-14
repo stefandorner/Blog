@@ -20,8 +20,18 @@ namespace Dorner.Services.Blog.EntityFramework.DbContexts
             if (storeOptions == null) throw new ArgumentNullException(nameof(storeOptions));
             this.storeOptions = storeOptions;
         }
+        
+        public DbSet<Entities.Blog> Blogs { get; set; }
 
-        public DbSet<BlogEntry> BlogEntries { get; set; }
+        public DbSet<BlogAuthor> Authors { get; set; }
+
+        public DbSet<BlogPost> Posts { get; set; }
+
+        public DbSet<BlogCategory> Categories { get; set; }
+
+        public DbSet<BlogPostTag> PostTags { get; set; }
+
+        public DbSet<BlogPostCategory> PostCategories { get; set; }
 
         public Task<int> SaveChangesAsync()
         {

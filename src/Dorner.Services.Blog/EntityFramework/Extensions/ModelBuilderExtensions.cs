@@ -1,5 +1,6 @@
 ﻿using Dorner.Services.Blog.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -16,82 +17,205 @@ namespace Dorner.Services.Blog.EntityFramework.Extensions
             return string.IsNullOrWhiteSpace(configuration.Schema) ? entityTypeBuilder.ToTable(configuration.Name) : entityTypeBuilder.ToTable(configuration.Name, configuration.Schema);
         }
 
+        private static void BuildModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.Blog", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("BaseUrl");
+
+                b.Property<DateTime>("DateCreated");
+
+                b.Property<DateTime>("DatePublished");
+
+                b.Property<DateTime>("DateUpdated");
+
+                b.Property<string>("Description");
+
+                b.Property<string>("HostHeader");
+
+                b.Property<string>("Title")
+                    .HasMaxLength(200);
+
+                b.HasKey("Id");
+
+                b.HasIndex("Id")
+                    .IsUnique();
+
+                b.ToTable("Blogs");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogAuthor", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("DisplayName");
+
+                b.Property<string>("EmailAddress");
+
+                b.Property<string>("IdentityId");
+
+                b.HasKey("Id");
+
+                b.HasIndex("Id")
+                    .IsUnique();
+
+                b.ToTable("BlogAuthors");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogCategory", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<int>("BlogId");
+
+                b.Property<string>("Description");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                b.HasKey("Id");
+
+                b.HasIndex("BlogId");
+
+                b.HasIndex("Id")
+                    .IsUnique();
+
+                b.ToTable("BlogCategories");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<int>("AuthorId");
+
+                b.Property<int>("BlogId");
+
+                b.Property<string>("BlogPostId")
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                b.Property<string>("Body");
+
+                b.Property<DateTime>("DateCreated");
+
+                b.Property<DateTime>("DatePublished");
+
+                b.Property<DateTime>("DateUpdated");
+
+                b.Property<string>("Description");
+
+                b.Property<bool>("IsPublished");
+
+                b.Property<string>("Title")
+                    .HasMaxLength(200);
+
+                b.HasKey("Id");
+
+                b.HasIndex("AuthorId");
+
+                b.HasIndex("BlogId");
+
+                b.HasIndex("Id")
+                    .IsUnique();
+
+                b.ToTable("BlogPosts");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPostCategory", b =>
+            {
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<int>("BlogCategoryId");
+
+                b.Property<int>("BlogPostId");
+
+                b.HasKey("ID");
+
+                b.HasIndex("BlogCategoryId");
+
+                b.HasIndex("BlogPostId");
+
+                b.ToTable("BlogPostCategories");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPostTag", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("Name");
+
+                b.Property<int>("PostId");
+
+                b.HasKey("Id");
+
+                b.HasIndex("PostId");
+
+                b.ToTable("BlogPostTag");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogCategory", b =>
+            {
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.Blog", "Blog")
+                    .WithMany("Categories")
+                    .HasForeignKey("BlogId")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", b =>
+            {
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.BlogAuthor", "Author")
+                    .WithMany("Posts")
+                    .HasForeignKey("AuthorId")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.Blog", "Blog")
+                    .WithMany("Posts")
+                    .HasForeignKey("BlogId")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPostCategory", b =>
+            {
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.BlogCategory", "Category")
+                    .WithMany()
+                    .HasForeignKey("BlogCategoryId")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", "Post")
+                    .WithMany("Categories")
+                    .HasForeignKey("BlogPostId")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPostTag", b =>
+            {
+                b.HasOne("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", "Post")
+                    .WithMany("Tags")
+                    .HasForeignKey("PostId")
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+        }
+
         public static void ConfigureBlogEngineContext(this ModelBuilder modelBuilder, BlogEngineStoreOptions storeOptions)
         {
             if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
 
-            modelBuilder.Entity<Entities.BlogEntry>(blogEntry =>
-            {
-                blogEntry.ToTable(storeOptions.BlogEntries);
-                blogEntry.HasKey(x => x.Id);
+            ModelBuilderExtensions.BuildModel(modelBuilder);
+            
 
-                blogEntry.Property(x => x.BlogEntryId).HasMaxLength(200).IsRequired();
-                //policy.Property(x => x.ProtocolType).HasMaxLength(200).IsRequired();
-                blogEntry.Property(x => x.Title).HasMaxLength(200);
-                //policy.Property(x => x.ClientUri).HasMaxLength(2000);
-
-                blogEntry.HasIndex(x => x.Id).IsUnique();
-
-                //policy.HasMany(x => x.AllowedGrantTypes).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.RedirectUris).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.PostLogoutRedirectUris).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.AllowedScopes).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.ClientSecrets).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.Claims).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.IdentityProviderRestrictions).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                //policy.HasMany(x => x.AllowedCorsOrigins).WithOne(x => x.Client).IsRequired().OnDelete(DeleteBehavior.Cascade);
-            });
-
-            //modelBuilder.Entity<ClientGrantType>(grantType =>
-            //{
-            //    grantType.ToTable(storeOptions.ClientGrantType);
-            //    grantType.Property(x => x.GrantType).HasMaxLength(250).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientRedirectUri>(redirectUri =>
-            //{
-            //    redirectUri.ToTable(storeOptions.ClientRedirectUri);
-            //    redirectUri.Property(x => x.RedirectUri).HasMaxLength(2000).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientPostLogoutRedirectUri>(postLogoutRedirectUri =>
-            //{
-            //    postLogoutRedirectUri.ToTable(storeOptions.ClientPostLogoutRedirectUri);
-            //    postLogoutRedirectUri.Property(x => x.PostLogoutRedirectUri).HasMaxLength(2000).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientScope>(scope =>
-            //{
-            //    scope.ToTable(storeOptions.ClientScopes);
-            //    scope.Property(x => x.Scope).HasMaxLength(200).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientSecret>(secret =>
-            //{
-            //    secret.ToTable(storeOptions.ClientSecret);
-            //    secret.Property(x => x.Value).HasMaxLength(2000).IsRequired();
-            //    secret.Property(x => x.Type).HasMaxLength(250);
-            //    secret.Property(x => x.Description).HasMaxLength(2000);
-            //});
-
-            //modelBuilder.Entity<ClientClaim>(claim =>
-            //{
-            //    claim.ToTable(storeOptions.ClientClaim);
-            //    claim.Property(x => x.Type).HasMaxLength(250).IsRequired();
-            //    claim.Property(x => x.Value).HasMaxLength(250).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientIdPRestriction>(idPRestriction =>
-            //{
-            //    idPRestriction.ToTable(storeOptions.ClientIdPRestriction);
-            //    idPRestriction.Property(x => x.Provider).HasMaxLength(200).IsRequired();
-            //});
-
-            //modelBuilder.Entity<ClientCorsOrigin>(corsOrigin =>
-            //{
-            //    corsOrigin.ToTable(storeOptions.ClientCorsOrigin);
-            //    corsOrigin.Property(x => x.Origin).HasMaxLength(150).IsRequired();
-            //});
         }
     }
 }

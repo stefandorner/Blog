@@ -20,10 +20,10 @@
   },
 
   "frameworks": {
-   "netcoreapp1.1": {
-    "imports": [
-      "dnxcore50"
-    ]
+    "netcoreapp1.1": {
+      "imports": [
+        "dnxcore50"
+      ]
     }
   }
 }
