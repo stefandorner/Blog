@@ -1,9 +1,12 @@
 {
+  "version": "1.0.0-*",
+  "commands": {
+    "web": "Microsoft.AspNet.Kestrel"
+  },
   "userSecretsId": "aspnet-Dorner.Net.Blog-670a400a-d96f-4b56-adb5-59a1dd4d6a02",
-
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.1",
+      "version": "1.1.0",
       "type": "platform"
     },
     "Microsoft.Extensions.Configuration.CommandLine": "1.1.0",
@@ -28,20 +31,29 @@
     "Microsoft.EntityFrameworkCore.Design": "1.1.0",
     "Dorner.Services.Blog": "1.0.0-*",
     "MailKit": "1.10.2",
-    "Microsoft.AspNetCore.ResponseCompression": "1.0.0"
+    "Microsoft.AspNetCore.ResponseCompression": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel.Https": "1.1.0"
   },
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.1.0-preview4-final",
     "Microsoft.AspNetCore.Razor.Tools": "1.1.0-preview4-final",
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
     "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final",
-    "BundlerMinifier.Core": "2.0.238"
+    "BundlerMinifier.Core": "2.3.327"
   },
   "frameworks": {
     "netcoreapp1.1": {
       "imports": [
         "dnxcore50"
       ]
+    }
+  },
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true,
+      "System.GC.Concurrent": true,
+      "System.Threading.ThreadPool.MinThreads": 4,
+      "System.Threading.ThreadPool.MaxThreads": 25
     }
   },
   "buildOptions": {
@@ -62,22 +74,18 @@
       ]
     }
   },
-  "runtimeOptions": {
-    "configProperties": {
-      "System.GC.Server": true
-    }
-  },
   "publishOptions": {
     "include": [
       "wwwroot",
       "**/*.cshtml",
       "appsettings.json",
-      "web.config"
+      "web.config",
+      "testCert.pfx"
     ]
   },
-    "scripts": {
-      "prepublish": [ "bower install", "dotnet bundle" ],
-      "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
-    }
+  "scripts": {
+    "prepublish": [ "bower install", "dotnet bundle" ],
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+  }
 
 }

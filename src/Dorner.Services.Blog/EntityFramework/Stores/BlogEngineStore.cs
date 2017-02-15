@@ -57,5 +57,18 @@ namespace Dorner.Services.Blog.Extensions.Repositories
 
             return Task.FromResult(models);
         }
+
+        public Task<List<Models.Blog>> GetBlogs(int pageSize = 10, int page = 1)
+        {
+            var entries = _context.Blogs
+                .OrderByDescending(b => b.Id)
+                .Skip((page - 1) * pageSize).Take(pageSize);
+
+            var models = entries?.ToModelList();
+
+            _logger.LogDebug("{blogEntryId} blog found in database: {blogEntryId}", models.Count, models != null);
+
+            return Task.FromResult(models);
+        }
     }
 }

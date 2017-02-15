@@ -5,6 +5,9 @@ using Dorner.Services.Blog.EntityFramework.Interfaces;
 using Dorner.Services.Blog.EntityFramework.DbContexts;
 using Dorner.Services.Blog.Repositories;
 using Dorner.Services.Blog.Extensions.Repositories;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -20,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.AddScoped<IBlogEngineDbContext, BlogEngineDbContext>();
 
             builder.Services.AddTransient<IBlogEngineStore, BlogEngineStore>();
+            
 
             var options = new BlogEngineStoreOptions();
             storeOptionsAction?.Invoke(options);
@@ -27,5 +31,21 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return builder;
         }
+
+        //public static IBlogEngineBuilder AddFileSystemProvider(
+        //    this IBlogEngineBuilder builder,
+        //    string connectionString = "")
+        //{
+            
+        //    builder.Services.Configure<RazorViewEngineOptions>(opts =>
+        //        opts.FileProviders.Add(new DatabaseFileProvider(connectionString))
+        //    );
+
+
+        //    return builder;
+        //}
+
+
+
     }
 }

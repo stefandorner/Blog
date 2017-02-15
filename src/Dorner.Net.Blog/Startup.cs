@@ -16,6 +16,11 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
 
 namespace Dorner.Net.Blog
 {
@@ -88,7 +93,9 @@ namespace Dorner.Net.Blog
 
 
             services.AddMvc();
-
+            services.Configure<RazorViewEngineOptions>(opts =>
+                opts.FileProviders.Add(new DatabaseFileProvider(Configuration.GetMariaDBConnectionString(Configuration.GetValue<string>("BLOG_DB_NAME"))))
+            );
             // Add application services.
             //services.AddTransient<IEmailSender, SmtpMessageSender>();
             //services.AddTransient<ISmsSender, SmtpMessageSender>();
@@ -157,18 +164,32 @@ namespace Dorner.Net.Blog
             #endregion
 
             app.UseIdentity();
-
+            
             app.UseBlogEngine();
             app.UseResponseCompression();
+
+            //app.Use(Startup.ChangeContextToHttps);
+            
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes =>
             {
+                routes.MapRoute("areaRoute", "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
-        
+        //private static RequestDelegate ChangeContextToHttps(RequestDelegate next)
+        //{
+        //    return async context =>
+        //    {
+        //        context.Request.Scheme = "https";
+        //        await next(context);
+        //    };
+        //}
     }
+
+    
 }

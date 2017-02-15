@@ -20,7 +20,9 @@ namespace Dorner.Services.Blog.EntityFramework.DbContexts
             if (storeOptions == null) throw new ArgumentNullException(nameof(storeOptions));
             this.storeOptions = storeOptions;
         }
-        
+
+        public DbSet<Entities.BlogFileSystem> FileSystem { get; set; }
+
         public DbSet<Entities.Blog> Blogs { get; set; }
 
         public DbSet<BlogAuthor> Authors { get; set; }

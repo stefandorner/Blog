@@ -21,7 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// The endpoints configuration.
         /// </value>
         public EndpointsOptions Endpoints { get; set; } = new EndpointsOptions();
-
         /// <summary>
         /// Gets or sets the discovery endpoint configuration.
         /// </summary>

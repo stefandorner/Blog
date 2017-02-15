@@ -9,6 +9,7 @@ namespace Dorner.Services.Blog.EntityFramework.Options
     {
         public string DefaultSchema { get; set; } = null;
 
+        public TableConfiguration BlogFileSystem { get; set; } = new TableConfiguration("BlogFileSystem");
         public TableConfiguration Blogs { get; set; } = new TableConfiguration("Blogs");
         public TableConfiguration BlogAuthors { get; set; } = new TableConfiguration("BlogAuthors");
         public TableConfiguration BlogPosts { get; set; } = new TableConfiguration("BlogEntries");

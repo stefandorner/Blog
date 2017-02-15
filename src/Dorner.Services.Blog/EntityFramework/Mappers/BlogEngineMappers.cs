@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,21 @@ namespace Dorner.Services.Blog.EntityFramework.Mappers
 
             return list;
         }
+
+        public static List<Models.Blog> ToModelList(this IQueryable<Entities.Blog> entities)
+        {
+            List<Models.Blog> list = new List<Models.Blog>();
+
+            foreach (var entity in entities)
+            {
+                list.Add(Mapper.Map<Models.Blog>(entity));
+            }
+
+            return list;
+        }
+
+
+
 
         public static Entities.BlogPost ToEntity(this Models.BlogPost blogEntry)
         {

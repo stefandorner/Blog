@@ -24,6 +24,7 @@ namespace Dorner.Services.Blog.EntityFramework.Entities
         public DateTime DatePublished { get; set; }
         public virtual ICollection<BlogCategory> Categories { get; set; }
         public virtual ICollection<BlogPost> Posts { get; set; }
+        public bool IsDefault { get; set; }
     }
 
 

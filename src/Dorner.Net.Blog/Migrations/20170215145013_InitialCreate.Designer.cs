@@ -8,7 +8,7 @@ using Dorner.Services.Blog.EntityFramework.DbContexts;
 namespace Dorner.Net.Blog.Migrations
 {
     [DbContext(typeof(BlogEngineDbContext))]
-    [Migration("20170213132505_InitialCreate")]
+    [Migration("20170215145013_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,8 @@ namespace Dorner.Net.Blog.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("HostHeader");
+
+                    b.Property<bool>("IsDefault");
 
                     b.Property<string>("Title")
                         .HasMaxLength(200);
@@ -84,6 +86,24 @@ namespace Dorner.Net.Blog.Migrations
                         .IsUnique();
 
                     b.ToTable("BlogCategories");
+                });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogFileSystem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("LastModified");
+
+                    b.Property<DateTime>("LastRequested");
+
+                    b.Property<string>("Location");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlogFileSystem");
                 });
 
             modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", b =>

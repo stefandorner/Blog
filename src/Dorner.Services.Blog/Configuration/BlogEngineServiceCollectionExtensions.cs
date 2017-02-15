@@ -18,13 +18,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             builder.AddRequiredPlatformServices();
 
-
-
             builder.AddCoreServices();
             builder.AddDefaultEndpoints();
             builder.AddPluggableServices();
             builder.AddValidators();
             builder.AddResponseGenerators();
+            //builder.AddFileSystemProvider();
 
             //builder.AddDefaultSecretParsers();
             //builder.AddDefaultSecretValidators();

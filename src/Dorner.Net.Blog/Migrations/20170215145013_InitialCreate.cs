@@ -20,6 +20,7 @@ namespace Dorner.Net.Blog.Migrations
                     DateUpdated = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     HostHeader = table.Column<string>(nullable: true),
+                    IsDefault = table.Column<bool>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
@@ -40,6 +41,22 @@ namespace Dorner.Net.Blog.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BlogAuthors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogFileSystem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Content = table.Column<string>(nullable: true),
+                    LastModified = table.Column<DateTime>(nullable: false),
+                    LastRequested = table.Column<DateTime>(nullable: false),
+                    Location = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogFileSystem", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,6 +217,9 @@ namespace Dorner.Net.Blog.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BlogFileSystem");
+
             migrationBuilder.DropTable(
                 name: "BlogPostCategories");
 

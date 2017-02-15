@@ -16,6 +16,10 @@ using Dorner.BlogServiceCore.Infrastructure;
 using Dorner.BlogServiceCore.Configuration;
 using Dorner.BlogServiceCore.Services;
 using Dorner.BlogServiceCore.Events;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using Dorner.Services.Blog.EntityFramework.Options;
+using Dorner.Services.Blog.EntityFramework.DbContexts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -150,6 +154,10 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.TryAddTransient<IRssResponseGenerator, RssResponseGenerator>();
             return builder;
         }
+
+        
+
+
 
         /// <summary>
         /// Adds the pluggable services.

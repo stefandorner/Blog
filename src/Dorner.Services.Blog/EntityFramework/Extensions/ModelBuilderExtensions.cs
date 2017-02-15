@@ -39,6 +39,8 @@ namespace Dorner.Services.Blog.EntityFramework.Extensions
 
                 b.Property<string>("HostHeader");
 
+                b.Property<bool>("IsDefault");
+
                 b.Property<string>("Title")
                     .HasMaxLength(200);
 
@@ -90,6 +92,24 @@ namespace Dorner.Services.Blog.EntityFramework.Extensions
                     .IsUnique();
 
                 b.ToTable("BlogCategories");
+            });
+
+            modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogFileSystem", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("Content");
+
+                b.Property<DateTime>("LastModified");
+
+                b.Property<DateTime>("LastRequested");
+
+                b.Property<string>("Location");
+
+                b.HasKey("Id");
+
+                b.ToTable("BlogFileSystem");
             });
 
             modelBuilder.Entity("Dorner.Services.Blog.EntityFramework.Entities.BlogPost", b =>
@@ -208,7 +228,6 @@ namespace Dorner.Services.Blog.EntityFramework.Extensions
                     .OnDelete(DeleteBehavior.Cascade);
             });
         }
-
         public static void ConfigureBlogEngineContext(this ModelBuilder modelBuilder, BlogEngineStoreOptions storeOptions)
         {
             if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
